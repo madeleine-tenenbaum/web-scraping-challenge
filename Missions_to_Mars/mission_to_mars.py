@@ -27,16 +27,19 @@ def scrape_info():
     soup = bs(html, "html.parser")
 
     # Get the news titles
-    latest_titles = soup.find("div", id="content_title").text
-    print(latest_titles)
+    #latest_titles = soup.find("div", class_="content_title").text
+    #print(latest_titles)
+    latest_titles = soup.find_all('a', {'class': 'content_title'}) 
+    for title in latest_titles:
+        print(title.get_text())
 
     #   Get the paragraph text
-    paragraph = soup.find('div', id="article_teaser_body").text
-    print(paragraph)
+    paragraph = soup.find("div", class_="article_teaser_body").text
+
 
     # # BONUS: Find the src for background img
-    relative_image_path = soup.find_all('img')[1]["src"]
-    mars_img = url + relative_image_path
+    relative_image_path = soup.findAll('img').get('src')
+    mars_img = "https://mars.nasa.gov/"+relative_image_path
 
     #Store data in a dictionary
     mars_data = {
@@ -50,5 +53,6 @@ def scrape_info():
 
     # Return results
     return mars_data
+print(scrape_info())
 
     

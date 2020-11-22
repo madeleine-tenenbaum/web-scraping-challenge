@@ -29,23 +29,31 @@ def scrape_info():
     # Get the news titles
     #latest_titles = soup.find("div", class_="content_title").text
     #print(latest_titles)
-    latest_titles = soup.find_all('a', {'class': 'content_title'}) 
-    for title in latest_titles:
-        print(title.get_text())
+
+    # get news title - list then div tag
+    headline_list = soup.find('li', class_='slide')
+    # --- save the content_title ---
+    latest_title = headline_list.find('div', class_='content_title').text
+    print(latest_title)
+
+    #latest_titles = soup.find_all('div', {'class': 'content_title'})
+    #for title in latest_titles:
+        #print(title.get_text())
 
     #   Get the paragraph text
     paragraph = soup.find("div", class_="article_teaser_body").text
 
 
     # # BONUS: Find the src for background img
-    relative_image_path = soup.findAll('img').get('src')
-    mars_img = "https://mars.nasa.gov/"+relative_image_path
+    #relative_image_path = soup.findAll('img').get('src')
+    
+    #mars_img = "https://mars.nasa.gov/"+relative_image_path
 
     #Store data in a dictionary
     mars_data = {
-         "mars_img": mars_img,
+ #        "mars_img": mars_img,
          "paragraph": paragraph,
-         "latest_titles": latest_titles
+         "latest_titles": latest_title
     }
 
     # Close the browser after scraping

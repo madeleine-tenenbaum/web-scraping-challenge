@@ -15,7 +15,7 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/mission_app")
 def home():
 
     # Find one record of data from the mongo database
-    mission_data = mongo.db.mission_data
+    mission_data = mongo.db.mission_data.find_one()
 
     # Return template and data
     return render_template("index.html", mars=mission_data)
